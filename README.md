@@ -1,5 +1,6 @@
 # bst_remote_apps
 Reference remote applications for collecting data from the Baby Shutter Tester device  
+These application use the data transmitted by device to display and collect relevant information. The format of these data are descirbed in the [wiki](https://github.com/sebastienroy/bst_remote_apps/wiki).  
 
 ## Personal computer application
 The reference application for personal computer is a Python application.  
