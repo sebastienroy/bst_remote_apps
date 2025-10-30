@@ -15,5 +15,12 @@ Requirements:
 
 See https://github.com/sebastienroy/shutter_lover_remote_app for the description of the installation of Python and PySerial package
 
+## Android application
+
+The Android application is available as an Android Studio project.  
+
+The application is currently not available in Android Play Store.  
+
+
 
 
