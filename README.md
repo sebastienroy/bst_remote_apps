@@ -18,8 +18,9 @@ See https://github.com/sebastienroy/shutter_lover_remote_app for the description
 ## Android application
 
 The Android application is available as an Android Studio project.  
+https://github.com/sebastienroy/bst_remote_apps/tree/main/android/BabyShutterTesterViewer  
 
-The application is currently not available in Android Play Store.  
+The application is currently not available in Android Play Store.  You have to build it using Android Studio, then upload it in your Android Phone (developper mode required).  
 
 
 
