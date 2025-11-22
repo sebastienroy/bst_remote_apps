@@ -236,8 +236,6 @@ class RemoteApp:
         self.selectedPort = StringVar()
         self.connectionStatusLabel = None
         self.connectionCombo = None
-        self.selectedDirection = StringVar()
-        self.extrapolation_factor = 24.0 / 20.0 # extrapolation from 20mm to 24mm (vertical direction)
         self.speedSetting = StringVar(value='60')
 
         # This is the columns definition : column and data id (internal identification of the culmn, must be unique), column name, column width, value format, value computation function that use json data
@@ -249,6 +247,8 @@ class RemoteApp:
             DataDef('speed_c', 'Speed (1/s)', 60, '{:0.1f}', lambda data: 1000000.0/data['effectiveTime']),
             DataDef('deviation', 'Deviation (EV)', 60, '{:0.1f}', lambda data: deviation(int(data[SPEED_SETTING_ID]), data['effectiveTime'])),
             DataDef('eff_time', 'Effective Time (ms)', 60, '{:0.3f}', lambda data: data['effectiveTime']/1000.0),
+            DataDef('tot_time', 'Total time (ms)', 60, '{:0.3f}', lambda data: data['totalTime']/1000.0),
+            DataDef('efficiency', 'Efficiency (%)', 60, '{:0.1f}', lambda data: data['eff_time']/data['tot_time']*100.0),
             DataDef('signal', 'Signal (%)', 60, '{:0.1f}', lambda data: data['relativeSignal']*100.0),
             DataDef('confidence', 'Confidence', 60, '{:0.1f}', lambda data: confidence(data['relativeSignal']))
             ]
@@ -412,14 +412,6 @@ class RemoteApp:
         # serial port status
         self.connectionStatusLabel = StringVar(frame, "Unknown Status")
         Label(button_frame, textvariable=self.connectionStatusLabel).grid(row=0, column=5, padx=5, pady=5)
-
-        # curtain translation direction combo
-        ttk.Separator(master=button_frame, orient=VERTICAL, style='TSeparator', class_= ttk.Separator,takefocus= 0).grid(row=0, column=6, padx=5, pady=0)
-        Label(button_frame, text="Curtain translation direction:").grid(row=0, column=7, padx=7, pady=5)
-        directionCombo = ttk.Combobox(button_frame, values=['Vertical', 'Horizontal'], textvariable = self.selectedDirection, state='readonly', width=8,  postcommand = self.update_cb_list)
-        directionCombo.current(0)
-        directionCombo.bind("<<ComboboxSelected>>", self.on_direction_selection)
-        directionCombo.grid(row=0, column=8, padx=5, pady=5)
 
         # Camera speed setting
         ttk.Separator(master=button_frame, orient=VERTICAL, style='TSeparator', class_= ttk.Separator,takefocus= 0).grid(row=0, column=9, padx=5, pady=0)
